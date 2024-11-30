@@ -1,0 +1,43 @@
+ITEM_ID_FIELD: business_id
+TAG_FIELD: tag
+USER_ID_FIELD: user_id
+data_path: ./Data/
+embedding_size: 128
+epochs: 500
+eval_args:
+  group_by: user
+  mode: full
+  order: RO
+  split:
+    RS:
+    - 0.7
+    - 0.15
+    - 0.15
+eval_batch_size: 32768
+eval_step: 1
+filter_inter_by_user_or_item: false
+learning_rate: 0.001
+load_col:
+  inter:
+  - user_id
+  - business_id
+  - stars
+  item:
+  - business_id
+  user:
+  - user_id
+metric_decimal_place: 6
+metrics:
+- Recall
+- NDCG
+model: ExpNGCF
+reproducibility: true
+seed: 42
+seq_separator: ','
+stopping_step: 10
+topk:
+- 10
+- 20
+train_batch_size: 16384
+valid_metric: NDCG@20
+valid_tag: true
